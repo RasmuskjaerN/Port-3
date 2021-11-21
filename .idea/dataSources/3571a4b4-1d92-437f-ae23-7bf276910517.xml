@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Port3DB">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.20">
+    <root id="1">
+      <ServerVersion>3.25.1</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="main">
+      <Current>1</Current>
+    </schema>
+    <collation id="3" parent="1" name="BINARY"/>
+    <collation id="4" parent="1" name="NOCASE"/>
+    <collation id="5" parent="1" name="RTRIM"/>
+    <table id="6" parent="2" name="Cities"/>
+    <table id="7" parent="2" name="Countries"/>
+    <table id="8" parent="2" name="Course"/>
+    <table id="9" parent="2" name="Students"/>
+    <table id="10" parent="2" name="Teacher"/>
+    <table id="11" parent="2" name="courseRegistration"/>
+    <table id="12" parent="2" name="sqlite_master">
+      <System>1</System>
+    </table>
+    <column id="13" parent="6" name="City">
+      <Position>1</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <column id="14" parent="6" name="zipCode">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="15" parent="6" name="countryCode">
+      <Position>3</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <index id="16" parent="6" name="sqlite_autoindex_Cities_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>City</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="17" parent="6">
+      <ColNames>City</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_Cities_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="18" parent="6">
+      <ColNames>countryCode</ColNames>
+      <RefTableName>Countries</RefTableName>
+      <RefColNames>countryCode</RefColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="19" parent="7" name="countryCode">
+      <Position>1</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="20" parent="7" name="Country">
+      <Position>2</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <index id="21" parent="7" name="sqlite_autoindex_Countries_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>countryCode</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="22" parent="7">
+      <ColNames>countryCode</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_Countries_1</UnderlyingIndexName>
+    </key>
+    <column id="23" parent="8" name="courseID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="24" parent="8" name="courseName">
+      <Position>2</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="8" name="Semester">
+      <Position>3</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <column id="26" parent="8" name="courseGPA">
+      <Position>4</Position>
+      <DataType>FLOAT|0s</DataType>
+    </column>
+    <column id="27" parent="8" name="teacherID">
+      <Position>5</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="28" parent="8">
+      <ColNames>courseID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="29" parent="8">
+      <ColNames>teacherID</ColNames>
+      <RefTableName>Teacher</RefTableName>
+      <RefColNames>teacherID</RefColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="30" parent="9" name="studentID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="9" name="firstName">
+      <Position>2</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="9" name="lastName">
+      <Position>3</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="9" name="GPA">
+      <Position>4</Position>
+      <DataType>FLOAT|0s</DataType>
+    </column>
+    <column id="34" parent="9" name="City">
+      <Position>5</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <column id="35" parent="9" name="Country">
+      <Position>6</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <key id="36" parent="9">
+      <ColNames>studentID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="37" parent="9">
+      <ColNames>City</ColNames>
+      <RefTableName>Cities</RefTableName>
+      <RefColNames>City</RefColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="38" parent="9">
+      <ColNames>Country</ColNames>
+      <RefTableName>Countries</RefTableName>
+      <RefColNames>countryCode</RefColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="39" parent="10" name="teacherID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="40" parent="10" name="firstName">
+      <Position>2</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="41" parent="10" name="lastName">
+      <Position>3</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <key id="42" parent="10">
+      <ColNames>teacherID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="43" parent="11" name="studentID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="11" name="courseID">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="11" name="Grade">
+      <Position>3</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <index id="46" parent="11" name="sqlite_autoindex_courseRegistration_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>courseID
+studentID</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="47" parent="11">
+      <ColNames>courseID
+studentID</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_courseRegistration_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="48" parent="11">
+      <ColNames>studentID</ColNames>
+      <RefTableName>Students</RefTableName>
+      <RefColNames>studentID</RefColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <foreign-key id="49" parent="11">
+      <ColNames>courseID</ColNames>
+      <RefTableName>Course</RefTableName>
+      <RefColNames>courseID</RefColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="50" parent="12" name="type">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="51" parent="12" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="52" parent="12" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="53" parent="12" name="rootpage">
+      <Position>4</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="54" parent="12" name="sql">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+  </database-model>
+</dataSource>
