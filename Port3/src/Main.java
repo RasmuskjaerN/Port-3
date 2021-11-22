@@ -11,6 +11,11 @@ public class Main{
             Reg.connectToDatabase();
             Reg.createStatement();
             Reg.SQLQueryStudents();
+            Reg.SQLQueryCourses();
+            Reg.PstmtAVGGradeFromCourse("SD","Autumn 2021");
+
+            //Reg.avgGradeFromStudent();
+
 
 
         } catch (SQLException e) {
