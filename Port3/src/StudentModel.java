@@ -29,7 +29,7 @@ public class StudentModel {
     }
 
     public String PstmtAVGGradeFromCourse(String Course,String Semester) throws SQLException {
-        String sql="SELECT AVG(D1.Grade) as Grade FROM courseRegistration as D1 JOIN Course as D2 on D1.CourseID=D2.CourseID WHERE courseName = ? group by Semester = ?;";
+        String sql="SELECT AVG(cR.Grade) as Grade FROM courseRegistration as cR JOIN Course as C on cR.CourseID=C.CourseID WHERE courseName = ? group by Semester = ?;";
         pstmt=conn.prepareStatement(sql);
         pstmt.setString(1, Course);
         pstmt.setString(2,Semester);
@@ -38,6 +38,43 @@ public class StudentModel {
         System.out.println(AVGGrade);
         return AVGGrade;
     }
+
+    public String PstmtAVGGradeFromStudent(String Students) throws SQLException {
+        String sql="SELECT AVG(Grade) as Grade FROM courseRegistration as cR JOIN Students as S on cR.studentID=S.studentID WHERE S.studentID = ?;";
+        pstmt=conn.prepareStatement(sql);
+        pstmt.setString(1, Students);
+        rs=pstmt.executeQuery();
+        String AVGGrade = rs.getString("Grade");
+        System.out.println(AVGGrade);
+        return AVGGrade;
+    }
+
+    public ArrayList<StudentInfo> PstmCourseAndStudentGrades(String StudentRegistration) throws SQLException {
+        ArrayList<StudentInfo> StudentInfos = new ArrayList<>();
+        String sql = "SELECT S.StudentID as StudentID, S.firstName as Name,\n" +
+        "       cR.CourseID as CourseID, C.courseName as CourseName, cR.Grade as Grade\n" +
+                "FROM Students as S\n" +
+                "         JOIN courseRegistration as cR ON S.StudentID=cR.StudentID\n" +
+                "         JOIN Course C on C.courseID = cR.courseID\n" +
+                "WHERE S.firstName= ?;";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,StudentRegistration);
+        rs=pstmt.executeQuery();
+        while (rs!=null&&rs.next()){
+            Integer StudentID = rs.getInt("studentID");
+            String FirstName = rs.getString("firstName");
+            String LastName = rs.getString("lastName");
+            Integer CourseID = rs.getInt("courseID");
+            String CourseName = rs.getString("courseName");
+            String Grade = rs.getString("Grade");
+            System.out.println("Student with ID:" + StudentID + "FirstName" + FirstName + "LastName" + LastName + "Are registered to course"+
+                    CourseName + "with ID " +CourseID + "And was Graded"+Grade);
+            StudentInfo I = new StudentInfo(StudentID,FirstName,LastName,CourseID,CourseName,Grade);
+            StudentInfos.add(I);
+        }
+        return StudentInfos;
+    }
+
 
 
     public ArrayList<String> SQLQueryStudents() throws SQLException{
@@ -113,15 +150,19 @@ public class StudentModel {
 
 class StudentInfo{
     Integer StudentID;
-    String Name;
+    String FirstName;
+    String LastName;
     Integer CourseID;
     String CourseName;
     String Grade;
-    StudentInfo(Integer StudentID, String Name, Integer CourseID, String CourseName, String Grade){
+    StudentInfo(Integer StudentID, String FirstName,String LastName, Integer CourseID, String CourseName, String Grade){
         this.StudentID = StudentID;
-        this.Name = Name;
+        this.FirstName = FirstName;
+        this.LastName = LastName;
         this.CourseID = CourseID;
         this.CourseName = CourseName;
         this.Grade = Grade;
     }
+
+
 }

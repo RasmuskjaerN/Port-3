@@ -13,8 +13,8 @@ public class Main{
             Reg.SQLQueryStudents();
             Reg.SQLQueryCourses();
             Reg.PstmtAVGGradeFromCourse("SD","Autumn 2021");
-
-            //Reg.avgGradeFromStudent();
+            Reg.PstmtAVGGradeFromStudent("1");
+            Reg.PstmCourseAndStudentGrades("1");
 
 
 
