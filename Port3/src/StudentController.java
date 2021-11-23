@@ -19,8 +19,8 @@ public class StudentController {
             Platform.exit();
             try {
                 this.model.closeConnectionToDatabase();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            } catch (SQLException e2) {
+                e2.printStackTrace();
             }
         });
         this.model.connectToDatabase();
@@ -28,21 +28,22 @@ public class StudentController {
         this.view.Courses = GetCourses();
         this.view.Students = GetStudents();
         this.view.Grades = GetGrades();
-        view.StudentInfo.setOnAction(e->{
+        view.GetStudentInfo.setOnAction(e->{
             try {
                 HandleGetStudentsInfo(String.valueOf(view.StudentComb.getValue()), view.StudentGrade);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                System.out.println(ex.getMessage());
+            } catch (SQLException e2) {
+                e2.printStackTrace();
+                System.out.println(e2.getMessage());
+
             }
         });
 
         view.SetGrade.setOnAction(e->{
             try {
                 model.SetGrade(String.valueOf(view.StudentComb.getValue()), String.valueOf(view.CourseComb.getValue()), String.valueOf(view.GradeSetComb.getValue()));
-            }catch (SQLException ex) {
-                ex.printStackTrace();
-                System.out.println(ex.getMessage());
+            }catch (SQLException e2) {
+                e2.printStackTrace();
+                System.out.println(e2.getMessage());
                 if (model.conn != null) {
                     try {
                         System.err.print("Grade is being rolled back");
@@ -57,7 +58,7 @@ public class StudentController {
 
 
 
-        view.StudentGrades.setOnAction(e->{
+        view.GetStudentGrade.setOnAction(e->{
             try {
                 HandleGetStudentAVGGrade(String.valueOf(view.StudentComb.getValue()), view.StudentGrade);
             } catch (SQLException ex) {
@@ -65,7 +66,7 @@ public class StudentController {
             }
         });
 
-        view.CourseGrades.setOnAction(e->{
+        view.GetCourseGrade.setOnAction(e->{
             try {
                 HandleGetCourseAVGGrade(String.valueOf(view.CourseComb.getValue()), view.StudentGrade);
             } catch (SQLException ex) {
@@ -117,7 +118,7 @@ public class StudentController {
     public void HandleGetCourseAVGGrade(String Course, TextArea CourseGrade) throws SQLException{
         CourseGrade.clear();
         CourseGrade.appendText(Course + " has an AVG grade of ");
-        String Info = model.PstmtAVGGradeFromCourse(Course,CourseGrade.toString());
+        String Info = model.PstmtAVGGradeFromCourse(Course);
         CourseGrade.appendText(Info + "\n");
     }
 }

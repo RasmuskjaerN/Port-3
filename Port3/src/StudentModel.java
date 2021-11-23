@@ -28,11 +28,11 @@ public class StudentModel {
         this.stmt = conn.createStatement();
     }
 
-    public String PstmtAVGGradeFromCourse(String Course,String Semester) throws SQLException {
-        String sql="SELECT AVG(cR.Grade) as Grade FROM courseRegistration as cR JOIN Course as C on cR.CourseID=C.CourseID WHERE courseName = ? group by Semester = ?;";
+    public String PstmtAVGGradeFromCourse(String Course) throws SQLException {
+        String sql="SELECT AVG(Grade) as Grade FROM courseRegistration as cR JOIN Course as C on cR.courseID=C.courseID WHERE courseName=?;";
         pstmt=conn.prepareStatement(sql);
         pstmt.setString(1, Course);
-        pstmt.setString(2,Semester);
+        //pstmt.setInt(2, CourseID);
         rs=pstmt.executeQuery();
         String AVGGrade = rs.getString("Grade");
         System.out.println(AVGGrade);
@@ -40,7 +40,7 @@ public class StudentModel {
     }
 
     public String PstmtAVGGradeFromStudent(String Students) throws SQLException {
-        String sql="SELECT AVG(Grade) as Grade FROM courseRegistration as cR JOIN Students as S on cR.studentID=S.studentID WHERE S.studentID = ?;";
+        String sql="SELECT AVG(Grade) as Grade FROM courseRegistration as cR JOIN Students as S on cR.studentID=S.studentID WHERE firstName = ?;";
         pstmt=conn.prepareStatement(sql);
         pstmt.setString(1, Students);
         rs=pstmt.executeQuery();
@@ -51,25 +51,24 @@ public class StudentModel {
 
     public ArrayList<StudentInfo> PstmCourseAndStudentGrades(String StudentRegistration) throws SQLException {
         ArrayList<StudentInfo> StudentInfos = new ArrayList<>();
-        String sql = "SELECT S.StudentID as StudentID, S.firstName as Name,\n" +
-        "       cR.CourseID as CourseID, C.courseName as CourseName, cR.Grade as Grade\n" +
+        String sql = "SELECT S.StudentID as StudentID,S.firstName as Name,\n" +
+                "       cR.courseID as CourseID,C.courseName as CourseName,cR.Grade as Grade\n" +
                 "FROM Students as S\n" +
                 "         JOIN courseRegistration as cR ON S.StudentID=cR.StudentID\n" +
-                "         JOIN Course C on C.courseID = cR.courseID\n" +
-                "WHERE S.firstName= ?;";
+                "         JOIN Course C on C.CourseID = cR.CourseID WHERE C.courseID = ?;";
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1,StudentRegistration);
         rs=pstmt.executeQuery();
         while (rs!=null&&rs.next()){
             Integer StudentID = rs.getInt("studentID");
             String FirstName = rs.getString("firstName");
-            String LastName = rs.getString("lastName");
+            //String LastName = rs.getString("lastName");
             Integer CourseID = rs.getInt("courseID");
             String CourseName = rs.getString("courseName");
             String Grade = rs.getString("Grade");
-            System.out.println("Student with ID:" + StudentID + "FirstName" + FirstName + "LastName" + LastName + "Are registered to course"+
+            System.out.println("Student with ID:" + StudentID + "FirstName" + FirstName + /*"LastName" + LastName +*/ "Are registered to course"+
                     CourseName + "with ID " +CourseID + "And was Graded"+Grade);
-            StudentInfo I = new StudentInfo(StudentID,FirstName,LastName,CourseID,CourseName,Grade);
+            StudentInfo I = new StudentInfo(StudentID,FirstName/*,LastName*/,CourseID,CourseName,Grade);
             StudentInfos.add(I);
         }
         return StudentInfos;
@@ -79,7 +78,7 @@ public class StudentModel {
 
     public ArrayList<String> SQLQueryStudents() throws SQLException{
         ArrayList<String> Students=new ArrayList<>();
-        String sql = "Select * from Students;";
+        String sql = "Select firstName from Students;";
         rs=stmt.executeQuery(sql);
         while(rs!=null && rs.next()){
             String name=rs.getString(1);
@@ -94,9 +93,9 @@ public class StudentModel {
         String sql = "Select courseName from Course;";
         rs=stmt.executeQuery(sql);
         while (rs!=null && rs.next()){
-            String cName = rs.getString(1);
-            System.out.println(cName);
-            Courses.add(cName);
+            String name = rs.getString(1);
+            System.out.println(name);
+            Courses.add(name);
         }
         return Courses;
     }
@@ -151,14 +150,14 @@ public class StudentModel {
 class StudentInfo{
     Integer StudentID;
     String FirstName;
-    String LastName;
+    //String LastName;
     Integer CourseID;
     String CourseName;
     String Grade;
-    StudentInfo(Integer StudentID, String FirstName,String LastName, Integer CourseID, String CourseName, String Grade){
+    StudentInfo(Integer StudentID, String FirstName/*,String LastName*/, Integer CourseID, String CourseName, String Grade){
         this.StudentID = StudentID;
         this.FirstName = FirstName;
-        this.LastName = LastName;
+        //this.LastName = LastName;
         this.CourseID = CourseID;
         this.CourseName = CourseName;
         this.Grade = Grade;
