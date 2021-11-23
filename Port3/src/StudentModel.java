@@ -51,11 +51,12 @@ public class StudentModel {
 
     public ArrayList<StudentInfo> PstmCourseAndStudentGrades(String StudentRegistration) throws SQLException {
         ArrayList<StudentInfo> StudentInfos = new ArrayList<>();
-        String sql = "SELECT S.StudentID as StudentID,S.firstName as Name,\n" +
+        String sql = "SELECT S.studentID as StudentID,S.firstName as FirstName,\n" +
                 "       cR.courseID as CourseID,C.courseName as CourseName,cR.Grade as Grade\n" +
                 "FROM Students as S\n" +
-                "         JOIN courseRegistration as cR ON S.StudentID=cR.StudentID\n" +
-                "         JOIN Course C on C.CourseID = cR.CourseID WHERE C.courseID = ?;";
+                "         JOIN courseRegistration as cR ON S.studentID=cR.studentID\n" +
+                "         JOIN Course C on C.courseID = cR.courseID\n" +
+                "WHERE S.firstName = ?;";
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1,StudentRegistration);
         rs=pstmt.executeQuery();

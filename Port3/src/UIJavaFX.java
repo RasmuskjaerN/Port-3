@@ -49,9 +49,9 @@ public class UIJavaFX {
         Startview.add(StudentComb,1,1);
         Startview.add(CourseComb,2,1);
         Startview.add(GradeSetComb, 3,1);
-        Startview.add(GetCourseGrade,2,2); //GetGradesCourse
-        Startview.add(GetStudentGrade,1,2); //GetGradesStudent
-        Startview.add(GetStudentInfo,1,3);   //GetStudentsInfo
+        Startview.add(GetCourseGrade,2,2);
+        Startview.add(GetStudentGrade,1,2);
+        Startview.add(GetStudentInfo,1,3);
         Startview.add(SetGrade,3,2);
         Startview.add(StudentGrade,1,4,3,4);
 
