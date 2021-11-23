@@ -15,7 +15,7 @@ public class StudentController {
         this.view = v;
         this.model = m;
 
-        this.view.exitBtn.setOnAction(e -> {
+        this.view.Exit.setOnAction(e -> {
             Platform.exit();
             try {
                 this.model.closeConnectionToDatabase();
@@ -23,14 +23,14 @@ public class StudentController {
                 ex.printStackTrace();
             }
         });
-        this.model.connectToStudentData();
-        this.model.CreateStatement();
+        this.model.connectToDatabase();
+        this.model.createStatement();
         this.view.Courses = GetCourses();
         this.view.Students = GetStudents();
         this.view.Grades = GetGrades();
-        view.GetStudentsInfo.setOnAction(e->{
+        view.StudentInfo.setOnAction(e->{
             try {
-                HandleGetStudentsInfo(String.valueOf(view.StudentComB.getValue()), view.StudentGrade);
+                HandleGetStudentsInfo(String.valueOf(view.StudentComb.getValue()), view.StudentGrade);
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 System.out.println(ex.getMessage());
@@ -39,7 +39,7 @@ public class StudentController {
 
         view.SetGrade.setOnAction(e->{
             try {
-                model.SetGrade(String.valueOf(view.StudentComB.getValue()), String.valueOf(view.CourseComB.getValue()), String.valueOf(view.GradeSelComB.getValue()));
+                model.SetGrade(String.valueOf(view.StudentComb.getValue()), String.valueOf(view.CourseComb.getValue()), String.valueOf(view.GradeSetComb.getValue()));
             }catch (SQLException ex) {
                 ex.printStackTrace();
                 System.out.println(ex.getMessage());
@@ -55,17 +55,19 @@ public class StudentController {
             }
         });
 
-        view.GetGradesCourse.setOnAction(e->{
+
+
+        view.StudentGrades.setOnAction(e->{
             try {
-                HandleGetCourseAVGGrade(String.valueOf(view.CourseComB.getValue()), view.StudentGrade);
+                HandleGetStudentAVGGrade(String.valueOf(view.StudentComb.getValue()), view.StudentGrade);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         });
 
-        view.GetGradesStudent.setOnAction(e->{
+        view.CourseGrades.setOnAction(e->{
             try {
-                HandleGetStudentAVGGrade(String.valueOf(view.StudentComB.getValue()), view.StudentGrade);
+                HandleGetCourseAVGGrade(String.valueOf(view.CourseComb.getValue()), view.StudentGrade);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -78,18 +80,21 @@ public class StudentController {
         return StudentsNames;
     }
 
-    public ObservableList<String> GetCourses() throws SQLException{
-        ArrayList<String> Course = model.SQLQueryCourses();
-        ObservableList<String> CoursesNames = FXCollections.observableArrayList(Course);
-        return CoursesNames;
-    }
-
     public ObservableList<String> GetGrades() {
         ArrayList<String> Grades = new ArrayList<>();
         Collections.addAll(Grades, "-3", "0", "02", "4", "7", "10", "12");
         ObservableList<String> GradesNR = FXCollections.observableArrayList(Grades);
         return GradesNR;
     }
+
+    public ObservableList<String> GetCourses() throws SQLException{
+        ArrayList<String> Course = model.SQLQueryCourses();
+        ObservableList<String> CoursesNames = FXCollections.observableArrayList(Course);
+        return CoursesNames;
+    }
+
+
+
 
     public void HandleGetStudentsInfo(String Student, TextArea studentGrade) throws SQLException{
         studentGrade.clear();

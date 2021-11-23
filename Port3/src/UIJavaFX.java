@@ -37,7 +37,7 @@ public class UIJavaFX {
         Exit = new Button("Close");
         StudentGrades = new Button("Get Student Grades");
         CourseGrades = new Button("Get Course Grades");
-        //GetStudentInfos = new Button("Get Student Info");
+        StudentInfo = new Button("Get Student Info");//
         SetGrade = new Button("Set Grade");
         StudentComb= new ComboBox();
         CourseComb = new ComboBox();
@@ -47,9 +47,9 @@ public class UIJavaFX {
         Startview.add(StudentComb,1,1);
         Startview.add(CourseComb,2,1);
         Startview.add(GradeSetComb, 3,1);
-        /*Startview.add(GetGradesCourse,2,2);
-        Startview.add(GetGradesStudent,1,2);
-        Startview.add(GetStudentsInfo,1,3);*/
+        Startview.add(CourseGrades,2,2); //GetGradesCourse
+        Startview.add(StudentGrades,1,2); //GetGradesStudent
+        Startview.add(StudentInfo,1,3);   //GetStudentsInfo
         Startview.add(SetGrade,3,2);
         Startview.add(StudentGrade,1,4,3,4);
 
