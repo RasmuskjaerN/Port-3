@@ -117,7 +117,7 @@ public class StudentController {
     public void HandleGetCourseAVGGrade(String Course, TextArea CourseGrade) throws SQLException{
         CourseGrade.clear();
         CourseGrade.appendText(Course + " has an AVG grade of ");
-        String Info = model.PstmtAVGGradeFromCourse(Course);
+        String Info = model.PstmtAVGGradeFromCourse(Course,CourseGrade.toString());
         CourseGrade.appendText(Info + "\n");
     }
 }
