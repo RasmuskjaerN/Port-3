@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS courseRegistration(
 DROP TABLE IF EXISTS Course;
 CREATE TABLE IF NOT EXISTS Course(
                                      courseID INTEGER NOT NULL PRIMARY KEY,
-                                     courseName TEXT NOT NULL,
+                                     courseName TEXT ,
                                      Semester TEXT,
                                      courseGPA FLOAT,
                                      teacherID INTEGER NOT NULL,
@@ -119,3 +119,29 @@ FROM Students as S
          JOIN courseRegistration as cR ON S.StudentID=cR.StudentID
          JOIN Course C on C.CourseID = cR.CourseID
 WHERE C.courseID=1;
+
+select * from Students;
+
+SELECT AVG(Grade) FROM courseRegistration as D1 join Students as D2 on D1.studentID = D2.studentID;
+
+SELECT AVG(D1.Grade) as Grade FROM courseRegistration as D1 JOIN Course as D2 on D1.CourseID=D2.CourseID group by D1.courseID;
+
+SELECT AVG(Grade) FROM courseRegistration group by courseID;
+
+SELECT AVG(cR.Grade) as Grade FROM courseRegistration as cR JOIN Students as S on cR.studentID=S.studentID WHERE S.studentID = ?;
+
+SELECT AVG(cR.Grade) as Grade FROM courseRegistration as cR JOIN Course as C on cR.courseID=C.courseID WHERE courseName =? GROUP BY C.courseID;
+
+SELECT S.StudentID as StudentID,S.firstName as Name,
+       cR.courseID as CourseID,C.courseName as CourseName,cR.Grade as Grade
+FROM Students as S
+         JOIN courseRegistration as cR ON S.StudentID=cR.StudentID
+         JOIN Course C on C.CourseID = cR.CourseID
+WHERE S.firstName = ?;
+
+UPDATE Course SET courseName = 'SD 2020', Semester = 'Autmn' where courseID =1;
+UPDATE Course SET courseName = 'SD 2021', Semester = 'Autmn' where courseID =2;
+UPDATE Course SET courseName = 'ES1 2020', Semester = 'Autmn' where courseID =3;
+--Remove added Grade
+UPDATE courseRegistration Set Grade = null WHERE studentID = 11 and courseID=1;
+--ok
