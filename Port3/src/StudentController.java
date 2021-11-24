@@ -30,7 +30,7 @@ public class StudentController {
         this.view.Grades = GetGrades();
         view.GetStudentInfo.setOnAction(e->{
             try {
-                HandleGetStudentsInfo(String.valueOf(view.StudentComb.getValue()), view.StudentGrade);
+                HandleGetStudentsInfo(String.valueOf(view.StudentComb.getValue()), view.InfoScreen);
             } catch (SQLException e2) {
                 e2.printStackTrace();
                 System.out.println(e2.getMessage());
@@ -38,7 +38,7 @@ public class StudentController {
             }
         });
 
-        view.SetGrade.setOnAction(e->{
+        /*view.SetGrade.setOnAction(e->{
             try {
                 model.SetGrade(String.valueOf(view.StudentComb.getValue()), String.valueOf(view.CourseComb.getValue()), String.valueOf(view.GradeSetComb.getValue()));
             }catch (SQLException e2) {
@@ -54,13 +54,13 @@ public class StudentController {
                     }
                 }
             }
-        });
+        });*/
 
 
 
         view.GetStudentGrade.setOnAction(e->{
             try {
-                HandleGetStudentAVGGrade(String.valueOf(view.StudentComb.getValue()), view.StudentGrade);
+                HandleGetStudentAVGGrade(String.valueOf(view.StudentComb.getValue()), view.InfoScreen);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -68,7 +68,7 @@ public class StudentController {
 
         view.GetCourseGrade.setOnAction(e->{
             try {
-                HandleGetCourseAVGGrade(String.valueOf(view.CourseComb.getValue()), view.StudentGrade);
+                HandleGetCourseAVGGrade(String.valueOf(view.CourseComb.getValue()), view.InfoScreen);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }

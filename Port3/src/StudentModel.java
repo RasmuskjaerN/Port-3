@@ -100,8 +100,9 @@ public class StudentModel {
         }
         return Courses;
     }
-
-    public void SetGrade(String Student, String Course, String Grade) throws SQLException{
+// An other student helped me with this one. Couldn't make it myself and dont fully understand so we choose to comment it out.
+// if u wanna test it feel free to remove it as comment but there is no remove grade function
+    /*public void SetGrade(String Student, String Course, String Grade) throws SQLException{
         conn.setAutoCommit(false);
         String SQL1 = "SELECT studentID as StudentID, firstName as Firstname, lastName as LastName FROM Students Where firstName=?;";
         pstmt=conn.prepareStatement(SQL1);
@@ -145,7 +146,7 @@ public class StudentModel {
         }else{
             System.out.println("Student has a Grade");
         }
-    }
+    }*/
 }
 
 class StudentInfo{
