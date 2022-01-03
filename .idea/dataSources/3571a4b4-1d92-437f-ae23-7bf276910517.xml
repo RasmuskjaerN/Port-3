@@ -1393,7 +1393,6 @@
     <column id="507" parent="172" name="courseName">
       <Position>2</Position>
       <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="508" parent="172" name="Semester">
       <Position>3</Position>
